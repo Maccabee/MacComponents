@@ -1,0 +1,23 @@
+{
+  "name": "maccomponents",
+  "version": "0.0.1",
+  "description": "List of Wec Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "text"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maccabee/MacComponents.git"
+  },
+  "keywords": [
+    "webcomponents",
+    "custom-elements"
+  ],
+  "author": "Marcus Brinda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maccabee/MacComponents/issues"
+  },
+  "homepage": "https://github.com/Maccabee/MacComponents#readme"
+}
