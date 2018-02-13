@@ -3,21 +3,26 @@
   "version": "0.0.1",
   "description": "List of Wec Components",
   "main": "index.js",
-  "scripts": {
-    "test": "text"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Maccabee/MacComponents.git"
   },
   "keywords": [
+    "custom-elements",
+    "customelements",
+    "web-components",
     "webcomponents",
-    "custom-elements"
+    "vanilla-js",
+    "javascript"
   ],
   "author": "Marcus Brinda",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Maccabee/MacComponents/issues"
   },
-  "homepage": "https://github.com/Maccabee/MacComponents#readme"
+  "homepage": "https://github.com/Maccabee/MacComponents#readme",
+  "devDependencies": {
+    "express": "^4.16.2"
+  }
 }
