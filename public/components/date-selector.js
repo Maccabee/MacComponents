@@ -1,4 +1,5 @@
 (function () {
+    debugger
     class DateSelector extends HTMLElement {
         constructor() {
             super();
