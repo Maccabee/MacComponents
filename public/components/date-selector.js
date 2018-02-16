@@ -1,5 +1,4 @@
 (function () {
-    debugger
     class DateSelector extends HTMLElement {
         constructor() {
             super();
@@ -45,6 +44,28 @@
                 option.text = i;
                 this._year.appendChild(option);
             }
+            this._month.addEventListener('change', e => this.changeMonth.call(this, e));
+            this._year.addEventListener('change', e => this.changeYear.call(this, e));
+        }
+        changeMonth(e) {
+            const { value } = e.target;
+            for (let i = 0; i < this._date.children.length; i++) {
+                this._date.children[i].removeAttribute('disabled');
+            }
+            if (value === '4' || value === '6' || value === '9' || value === '11') {
+                this._date.querySelector('[value="31"]').setAttribute('disabled', 'disabled');
+            }
+            if (value === '2') {
+                const days = this._date.querySelectorAll('[value="30"],[value="31"]');
+                for (let i = 0; i < days.length; i++) {
+                    days[i].setAttribute('disabled', 'disabled');
+                }
+                if (parseInt(this._year.value, 10) % 4 !== 0) {
+                    this._date.querySelector('[value="29"]').setAttribute('disabled', 'disabled');
+                }
+            }
+        }
+        changeYear(e) {
         }
     }
     customElements.define('date-selector', DateSelector);
