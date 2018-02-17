@@ -66,6 +66,14 @@
             }
         }
         changeYear(e) {
+            if (this._month.value === '2') {
+                const isLeapYear = parseInt(e.target.value, 10) % 4 === 0;
+                if (isLeapYear) {
+                    this._date.querySelector('[value="29"]').removeAttribute('disabled');
+                } else {
+                    this._date.querySelector('[value="29"]').setAttribute('disabled', 'disabled');
+                }
+            }
         }
     }
     customElements.define('date-selector', DateSelector);
