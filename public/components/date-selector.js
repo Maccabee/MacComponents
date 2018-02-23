@@ -3,7 +3,11 @@
         constructor() {
             super();
         }
-        attributeChangedCallback(name, oldValue, newValue) {
+        attributeChangedCallback() {
+            debugger
+        }
+        disconnectedCallback() {
+            debugger
         }
 
         connectedCallback() {
@@ -46,6 +50,12 @@
             }
             this._month.addEventListener('change', e => this.changeMonth.call(this, e));
             this._year.addEventListener('change', e => this.changeYear.call(this, e));
+
+            const val = this.value;
+            const date = new Date(val);
+            this._year.value = date.getFullYear();
+            this._month.value = date.getMonth() + 1;
+            this._date.value = date.getDate();
         }
         changeMonth(e) {
             const { value } = e.target;
@@ -74,6 +84,13 @@
                     this._date.querySelector('[value="29"]').setAttribute('disabled', 'disabled');
                 }
             }
+        }
+        get value() {
+            return this.dataset['value'];
+        }
+        set value(val) {
+            debugger
+            this.dataset['value'] = val;
         }
     }
     customElements.define('date-selector', DateSelector);
