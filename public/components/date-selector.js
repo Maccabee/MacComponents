@@ -3,11 +3,27 @@
         constructor() {
             super();
         }
-        attributeChangedCallback() {
-            debugger
+        static get observedAttributes() {
+            return ['date'];
+        }
+        attributeChangedCallback(attr, b, value) {
+            if (this.initiated && attr === 'date') {
+                const date = new Date(value) || false;
+                if (date) {
+                    this._year.value = date.getFullYear();
+                    this._month.value = date.getMonth() + 1;
+                    this._date.value = date.getDate();
+                } else {
+                    this._date.value = '';
+                    this._month.value = '';
+                    this._year.value = '';
+                    this.date = '';
+                }
+            }
         }
         disconnectedCallback() {
-            debugger
+            this._month.removeEventListener('change', e => this.changeMonth.call(this, e));
+            this._year.removeEventListener('change', e => this.changeYear.call(this, e));
         }
 
         connectedCallback() {
@@ -50,26 +66,19 @@
             }
             this._month.addEventListener('change', e => this.changeMonth.call(this, e));
             this._year.addEventListener('change', e => this.changeYear.call(this, e));
-
-            const val = this.value;
-            const date = new Date(val);
-            this._year.value = date.getFullYear();
-            this._month.value = date.getMonth() + 1;
-            this._date.value = date.getDate();
+            this.initiated = true;
+            this.attributeChangedCallback('date', null, this.date);
         }
         changeMonth(e) {
             const { value } = e.target;
             for (let i = 0; i < this._date.children.length; i++) {
                 this._date.children[i].removeAttribute('disabled');
             }
-            if (value === '4' || value === '6' || value === '9' || value === '11') {
+            if (value === '2' || value === '4' || value === '6' || value === '9' || value === '11') {
                 this._date.querySelector('[value="31"]').setAttribute('disabled', 'disabled');
             }
             if (value === '2') {
-                const days = this._date.querySelectorAll('[value="30"],[value="31"]');
-                for (let i = 0; i < days.length; i++) {
-                    days[i].setAttribute('disabled', 'disabled');
-                }
+                this._date.querySelector('[value="30"]').setAttribute('disabled', 'disabled')
                 if (parseInt(this._year.value, 10) % 4 !== 0) {
                     this._date.querySelector('[value="29"]').setAttribute('disabled', 'disabled');
                 }
@@ -85,12 +94,11 @@
                 }
             }
         }
-        get value() {
-            return this.dataset['value'];
+        get date() {
+            return this.getAttribute('date');
         }
-        set value(val) {
-            debugger
-            this.dataset['value'] = val;
+        set date(val) {
+            this.setAttribute('date', val);
         }
     }
     customElements.define('date-selector', DateSelector);
